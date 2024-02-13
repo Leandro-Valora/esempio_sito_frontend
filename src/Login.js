@@ -22,12 +22,12 @@ function Login() {
     useEffect(() => {
         if (validationPerformed) {
             const handleValidation = () => {
-                if (errors.email === "" && errors.password === "") {
+                if (Object.keys(errors).length === 0) {
                     axios.post("https://esempio-sito.onrender.com/login", values).then(res => {
                         if (res.data === "Success") {
                             navigate("/home");
                         } else {
-                            console.log("Sono nell'errore del login. Hai cliccato il button ?");
+                            console.log("Hai cliccato il button ?");
                             setLoginError(true); // Set login error state to true if login fails
                         }
                     })
