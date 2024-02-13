@@ -22,7 +22,7 @@ function Signup() {
     useEffect(() => {
         if (validationPerformed) {
             const handleValidation = () => {
-                if (errors.name === "x" && errors.email === "x" && errors.password === "x") {
+                if (errors.name === "" && errors.email === "" && errors.password === "") {
                     axios.post("https://esempio-sito.onrender.com/signup", values).then(res => {
                     navigate("/");
                 })
