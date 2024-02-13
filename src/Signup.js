@@ -38,7 +38,7 @@ function Signup() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //console.log("Form values:", values); valore dei campi formato json
+        console.log("Form values:", values); valore dei campi formato json
         const validationErrors = Validation(values);
         setErrors(validationErrors);
         setValidationPerformed(true);
