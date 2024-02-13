@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Validation from './LoginValidation';
 import axios from 'axios';
@@ -12,37 +12,30 @@ function Login() {
 
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
-    const [validationPerformed, setValidationPerformed] = useState(false);
-    const [loginError, setLoginError] = useState(false); // New state to track login error
+    const [loginError, setLoginError] = useState(false);
 
     const handleInput = (event) => {
         setValues(prev => ({...prev, [event.target.name]: event.target.value}));
     };
 
-    useEffect(() => {
-        if (validationPerformed) {
-            const handleValidation = () => {
-                if (Object.keys(errors).length === 0) {
-                    axios.post("https://esempio-sito.onrender.com/login", values).then(res => {
-                        if (res.data === "Success") {
-                            navigate("/home");
-                        } else {
-                            console.log("Hai cliccato il button ?");
-                            setLoginError(true); // Set login error state to true if login fails
-                        }
-                    })
-                    .catch(err => console.log(err));
-                }
-            };
-            handleValidation();
-        }
-    }, [errors, navigate, validationPerformed, values]);
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const validationErrors = Validation(values);
         setErrors(validationErrors);
-        setValidationPerformed(true);
+        
+        // Controllo solo se non ci sono errori di validazione
+        if (errors.email === "" && errors.password === "") {
+            axios.post("http://localhost:8081/login", values)
+                .then(res => {
+                    if (res.data === "Success") {
+                        navigate("/home");
+                    } else {
+                        console.log("Riprova ancora dai...");
+                        setLoginError(true);
+                    }
+                })
+                .catch(err => console.log(err));
+        }
     };
 
     return (
