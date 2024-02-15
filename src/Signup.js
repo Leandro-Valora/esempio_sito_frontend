@@ -23,7 +23,7 @@ function Signup() {
         if (validationPerformed) {
             const handleValidation = () => {
                 if (errors.name === "" && errors.email === "" && errors.password === "") {
-                    axios.post("https://esempio-sito.onrender.com/signup", values).then(res => {
+                    axios.post("https://back-kings-home.onrender.com/signup", values).then(res => {
                     navigate("/");
                 })
                     .catch(err => console.log(err));
