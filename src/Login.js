@@ -24,8 +24,8 @@ function Login() {
         setErrors(validationErrors);
         
         // Controllo solo se non ci sono errori di validazione
-        if (errors.email === "" && errors.password === "") {
-            axios.post("https://esempio-sito.onrender.com/login", values)
+        if (validationErrors.email === "" && validationErrors.password === "") {
+            axios.post("http://localhost:443/login", values)
                 .then(res => {
                     if (res.data === "Success") {
                         navigate("/home");
